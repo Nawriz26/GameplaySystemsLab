@@ -11,6 +11,7 @@ ATriggerActor::ATriggerActor()
     RootComponent = TriggerBox;
 
     TriggerBox->SetCollisionProfileName(TEXT("Trigger"));
+    TriggerBox->SetGenerateOverlapEvents(true);
 
     TriggerBox->OnComponentBeginOverlap.AddDynamic(this, &ATriggerActor::OnOverlapBegin);
 }
@@ -26,6 +27,12 @@ void ATriggerActor::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* 
 {
     if (OtherActor && OtherActor != this)
     {
+        // DEBUG MESSAGE
+        if (GEngine)
+        {
+            GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Player Entered Trigger"));
+        }
+
         TArray<AActor*> FoundEnemies;
         UGameplayStatics::GetAllActorsOfClass(GetWorld(), AEnemy::StaticClass(), FoundEnemies);
 
