@@ -44,5 +44,6 @@ void ABreakableActor::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor,
 			);
             Destroy();
         }
+        Destroy();
     }
 }
