@@ -18,7 +18,7 @@ ACollectible::ACollectible()
 
     Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
     Mesh->SetupAttachment(RootComponent);
-    Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    //Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
     Sphere->OnComponentBeginOverlap.AddDynamic(this, &ACollectible::OnOverlap);
 }
@@ -52,6 +52,8 @@ void ACollectible::OnOverlap(UPrimitiveComponent* OverlappedComp,
                 TEXT("Collected Item! +20 Health")
             );
         }
+
+		// Destroy the collectible
         Destroy();
     }
 }

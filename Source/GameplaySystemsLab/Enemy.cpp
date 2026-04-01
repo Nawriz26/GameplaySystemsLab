@@ -25,7 +25,7 @@ void AEnemy::Tick(float DeltaTime)
     Super::Tick(DeltaTime);
 }
 
-// 🔥 Step 6.3 — APPLY DAMAGE SYSTEM
+// 🔥 APPLY DAMAGE SYSTEM
 float AEnemy::TakeDamage(float DamageAmount,
     FDamageEvent const& DamageEvent,
     AController* EventInstigator,
