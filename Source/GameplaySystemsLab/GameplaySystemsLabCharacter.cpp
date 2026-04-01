@@ -105,9 +105,17 @@ void AGameplaySystemsLabCharacter::Attack()
 				nullptr
 			);
 		}
-		else if (ABreakableActor* Breakable = Cast<ABreakableActor>(Hit.GetActor()))
+		FVector ForwardCam = FollowCamera->GetForwardVector();
+		if (ABreakableActor* Breakable = Cast<ABreakableActor>(Hit.GetActor()))
 		{
-			Breakable->Destroy();
+			if (UPrimitiveComponent* HitComp = Hit.GetComponent())
+			{
+				if (HitComp->IsSimulatingPhysics())
+				{
+					const float ImpulseStrength = 10000.f;
+					HitComp->AddImpulseAtLocation(ForwardCam * ImpulseStrength, Hit.ImpactPoint);
+				}
+			}
 		}
 	}
 }

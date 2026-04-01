@@ -33,6 +33,11 @@ float AEnemy::TakeDamage(float DamageAmount,
 {
     Health -= DamageAmount;
 
+	UE_LOG(LogTemp, Warning, TEXT("Enemy took %f damage from %s. Health now: %f"),
+		DamageAmount,
+		DamageCauser ? *DamageCauser->GetName() : TEXT("None"),
+		Health);
+
     if (Health <= 0.f)
     {
         Destroy();

@@ -25,8 +25,10 @@ void ABreakableActor::BeginPlay()
     Super::BeginPlay();
 }
 
-void ABreakableActor::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor,
-    UPrimitiveComponent* OtherComp, FVector NormalImpulse,
+void ABreakableActor::OnHit(UPrimitiveComponent* HitComp, 
+    AActor* OtherActor,
+    UPrimitiveComponent* OtherComp, 
+    FVector NormalImpulse,
     const FHitResult& Hit)
 {
     if (OtherActor && OtherActor != this)

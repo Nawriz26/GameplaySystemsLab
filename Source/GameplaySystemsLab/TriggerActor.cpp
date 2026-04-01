@@ -28,16 +28,16 @@ void ATriggerActor::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* 
 {
     if (OtherActor && OtherActor != this)
     {
-        // DEBUG MESSAGE
+		// Cast the to the player to check if it has entered the trigger
         AGameplaySystemsLabCharacter* Player = Cast<AGameplaySystemsLabCharacter>(OtherActor);
         if (Player)
         {
-            GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Player Entered Trigger"));
+            GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Player Entered Trigger. Enemies will be destroyed!!"));
+            UE_LOG(LogTemp, Log, TEXT("Player Entered Trigger. Enemies will be destroyed!!"));
         }
 
         TArray<AActor*> FoundEnemies;
         UGameplayStatics::GetAllActorsOfClass(GetWorld(), AEnemy::StaticClass(), FoundEnemies);
-
         for (AActor* Actor : FoundEnemies)
         {
             Actor->Destroy();
