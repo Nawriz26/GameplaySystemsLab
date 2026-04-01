@@ -1,4 +1,4 @@
-﻿// GameplaySystemsLabCharacter.cpp
+﻿// GameplaySystemsLabCharacter.h
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "GameplaySystemsLabCharacter.h"
@@ -12,6 +12,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "GameplaySystemsLab.h"
+#include "Kismet/GameplayStatics.h"
 
 // Added these
 #include "DrawDebugHelpers.h"
@@ -66,32 +67,39 @@ void AGameplaySystemsLabCharacter::SetupPlayerInputComponent(UInputComponent* Pl
 
 void AGameplaySystemsLabCharacter::Attack()
 {
-	UE_LOG(LogTemp, Warning, TEXT("ATTACK PRESSED"));
-
 	FVector Start = GetActorLocation();
-	FVector End = Start + (GetActorForwardVector() * 5000.0f);
-
-	DrawDebugLine(GetWorld(), Start, End, FColor::Red, false, 5.0f, 0, 5.0f);
+	FVector Forward = GetActorForwardVector();
+	FVector End = Start + (Forward * 500.f);
 
 	FHitResult Hit;
 	FCollisionQueryParams Params;
 	Params.AddIgnoredActor(this);
 
-	bool bHit = GetWorld()->LineTraceSingleByChannel(Hit, Start, End, ECC_WorldStatic, Params);
+	bool bHit = GetWorld()->LineTraceSingleByChannel(
+		Hit,
+		Start,
+		End,
+		ECC_Visibility,
+		Params
+	);
+
+	// Debug line
+	DrawDebugLine(GetWorld(), Start, End, FColor::Red, false, 1.0f);
 
 	if (bHit)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("HIT SOMETHING"));
+		AEnemy* Enemy = Cast<AEnemy>(Hit.GetActor());
 
-		if (Hit.GetActor())
+		if (Enemy)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Destroying: %s"), *Hit.GetActor()->GetName());
-			Hit.GetActor()->Destroy();
+			UGameplayStatics::ApplyDamage(
+				Enemy,
+				25.f,
+				GetController(),
+				this,
+				nullptr
+			);
 		}
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("HIT NOTHING"));
 	}
 }
 
