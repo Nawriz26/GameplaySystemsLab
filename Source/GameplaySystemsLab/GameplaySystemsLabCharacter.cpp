@@ -17,6 +17,7 @@
 // Added these
 #include "DrawDebugHelpers.h"
 #include "Enemy.h"
+#include <BreakableActor.h>
 
 AGameplaySystemsLabCharacter::AGameplaySystemsLabCharacter()
 {
@@ -103,6 +104,10 @@ void AGameplaySystemsLabCharacter::Attack()
 				this,
 				nullptr
 			);
+		}
+		else if (ABreakableActor* Breakable = Cast<ABreakableActor>(Hit.GetActor()))
+		{
+			Breakable->Destroy();
 		}
 	}
 }

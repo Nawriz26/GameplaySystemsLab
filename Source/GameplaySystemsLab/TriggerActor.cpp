@@ -1,6 +1,7 @@
 #include "TriggerActor.h"
 #include "Components/BoxComponent.h"
 #include "Enemy.h"
+#include "GameplaySystemsLabCharacter.h"
 #include "Kismet/GameplayStatics.h"
 
 ATriggerActor::ATriggerActor()
@@ -28,7 +29,8 @@ void ATriggerActor::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* 
     if (OtherActor && OtherActor != this)
     {
         // DEBUG MESSAGE
-        if (GEngine)
+        AGameplaySystemsLabCharacter* Player = Cast<AGameplaySystemsLabCharacter>(OtherActor);
+        if (Player)
         {
             GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Player Entered Trigger"));
         }
