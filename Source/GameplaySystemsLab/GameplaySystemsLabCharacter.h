@@ -49,6 +49,13 @@ public:
 
 	AGameplaySystemsLabCharacter();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Health;
+
+	// Function to modify health
+	void AddHealth(float Amount);
+
+
 protected:
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;

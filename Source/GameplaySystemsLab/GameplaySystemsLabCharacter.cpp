@@ -44,6 +44,9 @@ AGameplaySystemsLabCharacter::AGameplaySystemsLabCharacter()
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom);
 	FollowCamera->bUsePawnControlRotation = false;
+
+	// Set default health value
+	Health = 100.f;
 }
 
 void AGameplaySystemsLabCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -147,4 +150,10 @@ void AGameplaySystemsLabCharacter::DoJumpStart()
 void AGameplaySystemsLabCharacter::DoJumpEnd()
 {
 	StopJumping();
+}
+
+void AGameplaySystemsLabCharacter::AddHealth(float Amount)
+{
+	Health += Amount;
+	Health = FMath::Clamp(Health, 0.f, 100.f);
 }
