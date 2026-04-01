@@ -52,9 +52,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Health;
 
-	// Function to modify health
-	void AddHealth(float Amount);
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float MaxHealth;
 
 protected:
 
@@ -81,6 +80,14 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Input")
 	virtual void DoJumpEnd();
+
+	// Function to modify health
+	void AddHealth(float Amount);
+
+	// Getter for UI binding
+	UFUNCTION(BlueprintCallable)
+	float GetHealthPercent() const;
+
 
 public:
 

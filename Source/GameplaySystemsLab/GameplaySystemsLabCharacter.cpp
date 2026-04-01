@@ -45,8 +45,9 @@ AGameplaySystemsLabCharacter::AGameplaySystemsLabCharacter()
 	FollowCamera->SetupAttachment(CameraBoom);
 	FollowCamera->bUsePawnControlRotation = false;
 
-	// Set default health value
+	// Health values
 	Health = 100.f;
+	MaxHealth = 100.f;
 }
 
 void AGameplaySystemsLabCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -157,3 +158,10 @@ void AGameplaySystemsLabCharacter::AddHealth(float Amount)
 	Health += Amount;
 	Health = FMath::Clamp(Health, 0.f, 100.f);
 }
+
+// Health percentage calculation and getter for UI
+float AGameplaySystemsLabCharacter::GetHealthPercent() const
+{
+	return Health / MaxHealth;
+}
+
