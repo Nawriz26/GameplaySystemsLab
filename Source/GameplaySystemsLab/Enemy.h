@@ -21,7 +21,6 @@ protected:
         class AController* EventInstigator,
         AActor* DamageCauser) override;
 
-
 public:
     virtual void Tick(float DeltaTime) override;
 
@@ -32,6 +31,4 @@ public:
     // Health
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy")
     float Health;
-
-    void TakeDamage(float DamageAmount);
 };

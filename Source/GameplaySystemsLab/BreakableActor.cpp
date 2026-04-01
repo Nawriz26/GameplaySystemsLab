@@ -1,6 +1,10 @@
+// GameplaySystemsLabCharacter.h
+// Copyright Epic Games, Inc. All Rights Reserved.
+
 #include "BreakableActor.h"
-#include "Components/StaticMeshComponent.h"
 #include "Enemy.h"
+#include "Components/StaticMeshComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 ABreakableActor::ABreakableActor()
 {
@@ -31,7 +35,13 @@ void ABreakableActor::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor,
 
         if (Enemy)
         {
-            Enemy->TakeDamage(50.f);
+			UGameplayStatics::ApplyDamage(
+				Enemy,
+				50.f,
+				nullptr,
+				this,
+				nullptr
+			);
             Destroy();
         }
     }
